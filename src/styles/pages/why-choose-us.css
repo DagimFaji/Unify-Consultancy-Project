@@ -1,0 +1,10 @@
+.strengths {
+    padding: 2rem;
+    text-align: center;
+}
+.strength-card {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    margin: 1rem 0;
+    border-radius: 5px;
+}

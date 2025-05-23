@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="../src/styles/global.css">
+    <link rel="stylesheet" href="../src/styles/pages/contact.css">
+    <script src="../src/scripts/language-switch.js" defer></script>
+</head>
+<body>
+    <header id="header"></header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1 data-translate="contact.hero.title"></h1>
+                <p data-translate="contact.hero.subtitle"></p>
+            </div>
+        </section>
+        <section class="contact-form">
+            <h2 data-translate="contact.form.title"></h2>
+            <p data-translate="contact.form.subtitle"></p>
+            <form id="contactForm">
+                <input type="text" data-translate-placeholder="contact.form.name" required>
+                <input type="email" data-translate-placeholder="contact.form.email" required>
+                <input type="tel" data-translate-placeholder="contact.form.phone" required>
+                <select data-translate-placeholder="contact.form.service" required>
+                    <option value="" disabled selected>Select Service</option>
+                    <option value="visa" data-translate="contact.form.service.visa"></option>
+                    <option value="license" data-translate="contact.form.service.license"></option>
+                    <option value="legal" data-translate="contact.form.service.legal"></option>
+                    <option value="financial" data-translate="contact.form.service.financial"></option>
+                </select>
+                <textarea data-translate-placeholder="contact.form.message" required></textarea>
+                <button type="submit" data-translate="contact.form.submit"></button>
+            </form>
+        </section>
+    </main>
+    <footer id="footer"></footer>
+    <script src="../src/scripts/load-components.js" defer></script>
+    <script src="../src/scripts/form-handler.js" defer></script>
+</body>
+</html>
