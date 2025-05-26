@@ -1,52 +1,583 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unify Consultancy</title>
-    <link rel="stylesheet" href="../src/styles/global.css">
-    <link rel="stylesheet" href="../src/styles/pages/home.css">
-    <script src="../src/scripts/language-switch.js" defer></script>
+    <title>Unify Consultancy | 咨询统 | Unify Consultancy | استشارات موحدة</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #FFFFFF;
+            color: #1A3C34;
+        }
+
+        .hero {
+            position: relative;
+            padding: 0;
+            background-color: #F5F5F5;
+        }
+
+        .hero-slideshow {
+            position: relative;
+            width: 100%;
+            height: 400px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit:cover;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .hero-nav {
+            position: absolute;
+            top: 20px;
+            left: 0;
+            width: 100%;
+            z-index: 2;
+            padding: 0 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hero-nav .logo img {
+            height: 50px;
+        }
+
+        .hero-nav nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-nav ul {
+            list-style: none;
+            display: flex;
+            gap:30px;
+        }
+
+        .hero-nav ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .hero-nav ul li a:hover {
+            color: #E8D5B9;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            margin-left:20px ;
+            gap: 30px;
+        }
+
+        .nav-right .login-signup {
+            color: #FFFFFF;
+            justify-content:end;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-right .login-signup:hover {
+            color: #e39e36;
+        }
+
+        .language-toggle select {
+            padding: 5px;
+            background-color: #E8D5B9;
+            color: #1A3C34;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .hero-content {
+            flex: 1;
+            z-index: 1;
+            position: relative;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 36px;
+            color: #1A3C34;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: #1A3C34;
+            text-decoration: none;
+            color: #d88912; 
+            font-weight: bold;
+            font-size: large;
+        }
+
+        .cta-button:hover {
+            color: #2A5C44;
+            transition-duration:2.3s;
+        }
+
+        .services {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .service-carousel {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            scroll-behavior: smooth;
+        }
+
+        .service-card {
+            background-color: #FFFFFF;
+            padding: 20px;
+            border: 1px solid #E8D5B9;
+            border-radius: 10px;
+            min-width: 200px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .service-card a {
+            color: #1A3C34;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .service-card a:hover {
+            color: #2A5C44;
+        }
+
+        .why-unify {
+            padding: 50px;
+            background-color: #E8D5B9;
+            text-align: center;
+        }
+
+        .why-unify h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .why-unify p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .why-unify blockquote {
+            font-style: italic;
+            color: #1A3C34;
+        }
+
+        .cta {
+            padding: 50px;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            background-color: #1A3C34;
+            color: #E8D5B9;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: #E8D5B9;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 768px) {
+            .hero-nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-right {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-slideshow {
+                height: 300px;
+            }
+
+            .services, .why-unify, .cta {
+                padding: 20px;
+            }
+
+            .service-card {
+                min-width: 150px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <header id="header"></header>
     <main>
         <section class="hero">
+            <div class="hero-slideshow">
+                <div class="slide"><img src="images/hero-image.jpg" alt="Addis Ababa Business District" loading="lazy" onerror="this.onerror=null; this.src=''; this.style.backgroundColor='#E8D5B9'; this.alt='Image unavailable';"></div>
+                <div class="slide"><img src="images/business-meeting.jpeg" alt="Business Meeting in Ethiopia" loading="lazy" onerror="this.onerror=null; this.src=''; this.style.backgroundColor='#E8D5B9'; this.alt='Image unavailable';"></div>
+                <div class="slide"><img src="images/ethiopian-landscape.jpg" alt="Ethiopian Landscape" loading="lazy" onerror="this.onerror=null; this.src=''; this.style.backgroundColor='#E8D5B9'; this.alt='Image unavailable';"></div>
+            </div>
+            <nav class="hero-nav" role="navigation">
+                <div class="logo">
+                    <img src="images/unify-consultancy-logo.png" alt="Unify Consultancy Logo" onerror="this.onerror=null; this.src=''; this.style.backgroundColor='#E8D5B9'; this.alt='Logo unavailable';">
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="index.html" aria-label="Home page"><span data-lang="en">Home</span><span data-lang="zh">首页</span><span data-lang="ar">الرئيسية</span></a></li>
+                        <li><a href="about.html" aria-label="About Us page"><span data-lang="en">About Us</span><span data-lang="zh">关于我们</span><span data-lang="ar">معلومات عنا</span></a></li>
+                        <li><a href="services.html" aria-label="Services page"><span data-lang="en">Services</span><span data-lang="zh">服务</span><span data-lang="ar">الخدمات</span></a></li>
+                        <li><a href="why-choose-us.html" aria-label="Why Choose Us page"><span data-lang="en">Why Choose Us</span><span data-lang="zh">选择我们</span><span data-lang="ar">لماذا تختارنا</span></a></li>
+                        <li><a href="resources.html" aria-label="Resources page"><span data-lang="en">Resources</span><span data-lang="zh">资源</span><span data-lang="ar">الموارد</span></a></li>
+                        <li><a href="contact.html" aria-label="Contact Us page"><span data-lang="en">Contact Us</span><span data-lang="zh">联系我们</span><span data-lang="ar">اتصل بنا</span></a></li>
+                        <li><a href="client-portal.html" aria-label="Login or Signup"><span data-lang="en">Login/Signup</span><span data-lang="zh">登录/注册</span><span data-lang="ar">تسجيل الدخول/التسجيل</span></a></li>
+                    </ul>
+                    <div class="nav-right">
+                        <div class="language-toggle">
+                            <select id="language-select" aria-label="Select language">
+                                <option value="en">English</option>
+                                <option value="zh">中文</option>
+                                <option value="ar">العربية</option>
+                            </select>
+                        </div>
+                    </div>
+                </nav>
+            </nav>
             <div class="hero-content">
-                <h1 data-translate="hero.title"></h1>
-                <p data-translate="hero.subtitle"></p>
-                <a href="contact.html" class="cta-button" data-translate="hero.cta"></a>
-            </div>
-            <div class="hero-image">
-                <img src="images/hero-image.jpg" alt="Addis Ababa Business District">
+                <h1>
+                    <span data-lang="en">Launch Your Business in Ethiopia with Unify Consultancy</span>
+                    <span data-lang="zh">与Unify Consultancy一起在埃塞俄比亚开启您的商业之旅</span>
+                    <span data-lang="ar">أطلق عملك في إثيوبيا مع Unify Consultancy</span>
+                </h1>
+                <p>
+                    <span data-lang="en">We provide fast, cost-effective solutions for Chinese investors, from visas and licenses to legal and financial consultancy.</span>
+                    <span data-lang="zh">我们为中国投资者提供快速、成本效益高的解决方案，涵盖签证、许可证、法律和财务咨询。</span>
+                    <span data-lang="ar">نقدم حلولاً سريعة وفعّالة من حيث التكلفة للمستثمرين الصينيين، من التأشيرات والتراخيص إلى الاستشارات القانونية والمالية。</span>
+                </p>
+                <a href="client-portal.html" class="cta-button">
+                    <span data-lang="en">Book a Consultation</span>
+                    <span data-lang="zh">预约咨询</span>
+                    <span data-lang="ar">حجز استشارة</span>
+                </a>
             </div>
         </section>
+
         <section class="services">
-            <h2 data-translate="services.title"></h2>
-            <div class="service-grid">
+            <h2>
+                <span data-lang="en">Our Services</span>
+                <span data-lang="zh">我们的服务</span>
+                <span data-lang="ar">خدماتنا</span>
+            </h2>
+            <div class="service-carousel">
                 <div class="service-card">
-                    <h3 data-translate="services.economic.title"></h3>
-                    <p data-translate="services.economic.description"></p>
-                    <a href="services.html#economic" data-translate="services.link"></a>
+                    <h3>
+                        <span data-lang="en">Visa Processing</span>
+                        <span data-lang="zh">签证处理</span>
+                        <span data-lang="ar">معالجة التأشيرات</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Secure investor visas quickly with our streamlined process.</span>
+                        <span data-lang="zh">通过我们流程快速获得投资签证。</span>
+                        <span data-lang="ar">تأمين تأشيرات المستثمرين بسرعة من خلال عمليتنا.</span>
+                    </p>
+                    <a href="services.html#visa-processing">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
                 </div>
                 <div class="service-card">
-                    <h3 data-translate="services.business.title"></h3>
-                    <p data-translate="services.business.description"></p>
-                    <a href="services.html#business" data-translate="services.link"></a>
+                    <h3>
+                        <span data-lang="en">Business License Processing</span>
+                        <span data-lang="zh">商业许可处理</span>
+                        <span data-lang="ar">معالجة تراخيص الأعمال</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Navigate Ethiopia’s licensing requirements with ease.</span>
+                        <span data-lang="zh">轻松应对许可要求。</span>
+                        <span data-lang="ar">التعامل مع متطلبات الترخيص بسهولة.</span>
+                    </p>
+                    <a href="services.html#business-license">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
+                </div>
+                <div class="service-card">
+                    <h3>
+                        <span data-lang="en">Legal Consultancy</span>
+                        <span data-lang="zh">法律咨询</span>
+                        <span data-lang="ar">الاستشارات القانونية</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Expert advice on business compliance.</span>
+                        <span data-lang="zh">关于商业合规的专家建议。</span>
+                        <span data-lang="ar">نصائح متخصصة حول الامتثال التجاري.</span>
+                    </p>
+                    <a href="services.html#legal-consultancy">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
+                </div>
+                <div class="service-card">
+                    <h3>
+                        <span data-lang="en">Financial Planning</span>
+                        <span data-lang="zh">财务规划</span>
+                        <span data-lang="ar">التخطيط المالي</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Tailored financial strategies for your investment.</span>
+                        <span data-lang="zh">通过专家规划优化您的投资。</span>
+                        <span data-lang="ar">تحسين استثماراتك مع التخطيط المتخصص.</span>
+                    </p>
+                    <a href="services.html#financial-planning">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
+                </div>
+                <div class="service-card">
+                    <h3>
+                        <span data-lang="en">Economic Development Consultancy</span>
+                        <span data-lang="zh">经济发展咨询</span>
+                        <span data-lang="ar">استشارات التنمية الاقتصادية</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Expert strategies for market entry in Ethiopia.</span>
+                        <span data-lang="zh">为埃塞俄比亚市场进入提供专家策略。</span>
+                        <span data-lang="ar">استراتيجيات متخصصة لدخول السوق في إثيوبيا.</span>
+                    </p>
+                    <a href="services.html#economic-development">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
+                </div>
+                <div class="service-card">
+                    <h3>
+                        <span data-lang="en">Business and Investment Consultancy</span>
+                        <span data-lang="zh">商业与投资咨询</span>
+                        <span data-lang="ar">استشارات الأعمال والاستثمار</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Support for business setup in any industry.</span>
+                        <span data-lang="zh">支持任何行业的商业设立。</span>
+                        <span data-lang="ar">دعم لإنشاء الأعمال في أي صناعة.</span>
+                    </p>
+                    <a href="services.html#business-investment">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
+                </div>
+                <div class="service-card">
+                    <h3>
+                        <span data-lang="en">Work Permits</span>
+                        <span data-lang="zh">工作许可</span>
+                        <span data-lang="ar">تصاريح العمل</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Streamlined permits for Chinese employees.</span>
+                        <span data-lang="zh">为中国员工提供简化的许可。</span>
+                        <span data-lang="ar">تصاريح مبسطة للموظفين الصينيين.</span>
+                    </p>
+                    <a href="services.html#work-permits">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
+                </div>
+                <div class="service-card">
+                    <h3>
+                        <span data-lang="en">Residence Permits</span>
+                        <span data-lang="zh">居留许可</span>
+                        <span data-lang="ar">تصاريح الإقامة</span>
+                    </h3>
+                    <p>
+                        <span data-lang="en">Support for long-term stays in Ethiopia.</span>
+                        <span data-lang="zh">支持在埃塞俄比亚的长期居留。</span>
+                        <span data-lang="ar">دعم للإقامة طويلة الأمد في إثيوبيا.</span>
+                    </p>
+                    <a href="services.html#residence-permits">
+                        <span data-lang="en">Learn More</span>
+                        <span data-lang="zh">了解更多</span>
+                        <span data-lang="ar">تعرف على المزيد</span>
+                    </a>
                 </div>
             </div>
         </section>
+
         <section class="why-unify">
-            <h2 data-translate="why.title"></h2>
-            <p data-translate="why.description"></p>
-            <blockquote data-translate="why.testimonial"></blockquote>
+            <h2>
+                <span data-lang="en">Why Unify Consultancy</span>
+                <span data-lang="zh">为什么选择Unify Consultancy</span>
+                <span data-lang="ar">لماذا Unify Consultancy</span>
+            </h2>
+            <p>
+                <span data-lang="en">With over 500 visas processed and 300 licenses secured, we’re trusted by Chinese investors.</span>
+                <span data-lang="zh">我们已处理超过500个签证和300个许可，深受中国投资者信赖。</span>
+                <span data-lang="ar">مع أكثر من 500 تأشيرة تمت معالجتها و300 ترخيص تم تأمينها، نحن موثوقون من قبل المستثمرين الصينيين.</span>
+            </p>
+            <blockquote>
+                <span data-lang="en">“Unify Consultancy helped me secure a business license in just weeks!” – Sample Client</span>
+                <span data-lang="zh">“Unify Consultancy在几周内帮我获得了商业许可！” – 示例客户</span>
+                <span data-lang="ar">"ساعدتني Unify Consultancy في تأمين ترخيص أعمال في غضون أسابيع فقط!" – عميل عينة</span>
+            </blockquote>
         </section>
+
         <section class="cta">
-            <h2 data-translate="cta.title"></h2>
-            <a href="contact.html" class="cta-button" data-translate="cta.button"></a>
+            <h2>
+                <span data-lang="en">Request a Free Consultation</span>
+                <span data-lang="zh">请求免费咨询</span>
+                <span data-lang="ar">طلب استشارة مجانية</span>
+            </h2>
+            <a href="client-portal.html" class="cta-button">
+                <span data-lang="en">Get Started</span>
+                <span data-lang="zh">开始</span>
+                <span data-lang="ar">ابدأ الآن</span>
+            </a>
         </section>
     </main>
-    <footer id="footer"></footer>
-    <script src="../src/scripts/load-components.js" defer></script>
+    <footer>
+        <p>
+            <span data-lang="en">© 2025 Unify Consultancy. All rights reserved.</span>
+            <span data-lang="zh">© 2025 咨询统。版权所有。</span>
+            <span data-lang="ar">© 2025 Unify Consultancy. جميع الحقوق محفوظة.</span>
+        </p>
+        <div class="footer-links">
+            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
+            <a href="contact.html">
+                <span data-lang="en">Contact Us</span>
+                <span data-lang="zh">联系我们</span>
+                <span data-lang="ar">اتصل بنا</span>
+            </a>
+        </div>
+    </footer>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === index) slide.classList.add('active');
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        showSlide(currentSlide);
+        setInterval(nextSlide, 5000);
+
+        const languageSelect = document.getElementById('language-select');
+        const elements = document.querySelectorAll('[data-lang]');
+
+        // Load saved language preference or default to Chinese
+        const savedLang = localStorage.getItem('language') || 'zh';
+        document.body.setAttribute('lang', savedLang);
+        languageSelect.value = savedLang;
+        updateLanguage(savedLang);
+
+        languageSelect.addEventListener('change', (e) => {
+            const lang = e.target.value;
+            document.body.setAttribute('lang', lang);
+            localStorage.setItem('language', lang);
+            updateLanguage(lang);
+        });
+
+        function updateLanguage(lang) {
+            elements.forEach(element => {
+                if (element.getAttribute('data-lang') === lang) {
+                    element.style.display = 'block';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+
+            // Update page title
+            const title = document.querySelector('title');
+            title.textContent = {
+                zh: 'Unify Consultancy | 咨询统',
+                en: 'Unify Consultancy',
+                ar: 'Unify Consultancy | استشارات موحدة'
+            }[lang];
+        }
+    </script>
 </body>
 </html>
